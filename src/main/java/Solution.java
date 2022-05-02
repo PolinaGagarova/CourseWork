@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.Arrays;
 
 public class Solution {
 
@@ -21,15 +22,20 @@ public class Solution {
                 String[] result = line.split("\t");                     //Разделили по табу, записали в массив
                 System.arraycopy(result, 0, arrayOfCSVFile, 0, arrayOfCSVFile.length);
 
-                if ( /*(arrayOfCSVFile[0].equals("")) & */                                      //курсы по выбору
+
+                //----------------------------------------------------------------------------------------------------------------
+                //----------------------------------------------------------------------------------------------------------------
+
+
+                if ( //(arrayOfCSVFile[0].equals("")) &                                       //курсы по выбору
                         (arrayOfCSVFile[1].equals("True")) &                                    //бакалавр
                                 (arrayOfCSVFile[2].equals("1")) &                                       //курс
-                                /*(arrayOfCSVFile[3].equals("")) & */                                   //предмет
+                                //(arrayOfCSVFile[3].equals("")) &                                    //предмет
                                 (arrayOfCSVFile[4].equals("False")) &                                   //к/в?
                                 //(arrayOfCSVFile[5].equals("")) &                                      //группа
-                                /*(arrayOfCSVFile[7].equals("")) & */                                   //бюджет
-                                /*(arrayOfCSVFile[8].equals("")) & */                                   //студент
-                                (arrayOfCSVFile[9].equals("17-18-summer")))                             //год сезон
+                                //(arrayOfCSVFile[7].equals("")) &                                    //бюджет
+                                //(arrayOfCSVFile[8].equals("")) &                                     //студент
+                                (arrayOfCSVFile[9].equals("17-18-winter")))                             //год сезон
                 {
 
                     if ((!arrayOfCSVFile[6].equals("3")) &
@@ -41,40 +47,51 @@ public class Solution {
 
                         if (arrayOfCSVFile[6].equals("незач") ||
                                 arrayOfCSVFile[6].equals("зач") ||
+                                arrayOfCSVFile[6].equals("зач ") ||
+                                arrayOfCSVFile[6].equals("зач*") ||
                                 arrayOfCSVFile[6].equals("нз") ||
                                 arrayOfCSVFile[6].equals("* Разработка сайта различными средствами ") ||
-                                arrayOfCSVFile[6].equals("Реализация решения задачи об обедающих философах на языке Python")) {
+                                arrayOfCSVFile[6].equals("Реализация решения задачи об обедающих философах на языке Python") ||
+                                arrayOfCSVFile[6].equals("отчисление по с") ||
+                                arrayOfCSVFile[6].equals("а") ||
+                                arrayOfCSVFile[6].equals("перевод") ||
+                                arrayOfCSVFile[6].equals("болел с 14.09.20187 по 24.09.2018") ||
+                                arrayOfCSVFile[6].equals("болел с 20 по 24.02") ||
+                                arrayOfCSVFile[6].equals("болел с 19.09 по 28.09") ||
+                                arrayOfCSVFile[6].equals("переведена в ЯГТУ")) {
                             arrayOfCSVFile[6] = null;
                         }                                                                    //убираем зач незач + всякую фигню
 
-                        assert arrayOfCSVFile[6] != null;
-                        if (arrayOfCSVFile[6].equals("ня") ||
-                                arrayOfCSVFile[6].equals("ня ") ||
-                                arrayOfCSVFile[6].equals("неяв")) {
-                            arrayOfCSVFile[6] = "2";
-                        }                                                                                 //неявка = 2
+                        if (arrayOfCSVFile[6] != null) {
 
-                        switch (arrayOfCSVFile[6]) {
-                            case "3*" -> arrayOfCSVFile[6] = "3";                        //убираем *
-                            case "4*" -> arrayOfCSVFile[6] = "4";
-                            case "5*" -> arrayOfCSVFile[6] = "5";
+                            if (arrayOfCSVFile[6].equals("ня") ||
+                                    arrayOfCSVFile[6].equals("ня ") ||
+                                    arrayOfCSVFile[6].equals("неяв")) {
+                                arrayOfCSVFile[6] = "2";
+                            }                                                                                 //неявка = 2
+
+                            switch (arrayOfCSVFile[6]) {
+                                case "3*" -> arrayOfCSVFile[6] = "3";                        //убираем *
+                                case "4*" -> arrayOfCSVFile[6] = "4";
+                                case "5*" -> arrayOfCSVFile[6] = "5";
+                            }
                         }
                     }
 
-                    if (arrayOfCSVFile[6] != null)                                  //если оценка есть
-                    {
-                    counterStudents++;                                          //считаем кол-во студентов
-                    sumOfGrades += Integer.parseInt(arrayOfCSVFile[6]);         //считаем сумму оценок
+                    if (arrayOfCSVFile[6] != null) {
+                        counterStudents++;                                          //считаем кол-во студентов
+                        sumOfGrades += Integer.parseInt(arrayOfCSVFile[6]);         //считаем сумму оценок
                     }
                 }
-
-                System.out.println("кол-во студ " + counterStudents);
-                System.out.println("сумма оценок " + sumOfGrades);
-
-                float conclusion = (float) sumOfGrades / (float) counterStudents;              //результат = сумма оценок/кол-во студентов
-                System.out.printf("ср балл " + "%.3f", conclusion);                               //округление до 3 знаков после запятой
-
             }
         }
+
+        System.out.println("кол-во студ " + counterStudents);
+        System.out.println("сумма оценок " + sumOfGrades);
+
+        float conclusion = (float) sumOfGrades / (float) counterStudents;              //результат = сумма оценок/кол-во студентов
+        System.out.printf("ср балл " + "%.3f", conclusion);                               //округление до 3 знаков после запятой
     }
 }
+
+
