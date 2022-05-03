@@ -10,11 +10,10 @@ public class Solution {
     public static void main(String[] args) {
 
         try {
-            ReaderFile.ReadingFile();                                        //метод чтения файла
-            Allsouts.AllsoutFile();
-        }
-       catch (Exception e) {
+            ReaderFile.ReadingFile();                       //метод чтения файла
+            Allsouts.AllsoutFile();                         //метод вывода всех результатов
+        } catch (Exception e) {
             e.printStackTrace();
-       }
+        }
     }
 }

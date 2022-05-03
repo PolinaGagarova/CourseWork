@@ -10,19 +10,18 @@ public class ReaderFile {
                 while (bufferReader.ready())                                            //Читаем из файла по 1 строке
                 {
                     String line = bufferReader.readLine();
-                    if (line.startsWith("alter")) {
+                    if (line.startsWith("alter")) {                                     //Пропустили первую строчку с заголовками
                         continue;
-                    }                                                                   //Пропустили первую строчку с заголовками
+                    }
 
                     String[] result = line.split("\t");                           //Разделили по табу, записали в массив
                     System.arraycopy(result, 0, Solution.arrayOfCSVFile, 0, Solution.arrayOfCSVFile.length);
 
-                    DataSampling.DataSamplingFile();                                   //обработка массива
+                    DataSampling.DataSamplingFile();                                    //класс обработки массива
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
