@@ -28,34 +28,70 @@ public class DataSampling {
                         }
                     }
 
-                    switch (Solution.arrayOfCSVFile[6]) {                                    //считаем кол-во студентов на зачете
-                        case "незач", "нез", "нзч", "не", "нз":
-                            Solution.counterStudentsOffsets++;
-                            break;
+                    if ("незач".equals(Solution.arrayOfCSVFile[6]) ||
+                            "нез".equals(Solution.arrayOfCSVFile[6]) ||
+                            "нзч".equals(Solution.arrayOfCSVFile[6]) ||
+                            "не".equals(Solution.arrayOfCSVFile[6]) ||
+                            "нз".equals(Solution.arrayOfCSVFile[6])) {
+                        Solution.counterStudentsOffsets++;
 
-                        case "ня", "ня ", "неяв", "н":                                        //неявка = 2
-                            Solution.arrayOfCSVFile[6] = "2";
-                            break;
 
-                        default:
-                            switch (Solution.arrayOfCSVFile[6]) {                             //убираем *
-                                case "3*" -> Solution.arrayOfCSVFile[6] = "3";
-                                case "4*" -> Solution.arrayOfCSVFile[6] = "4";
-                                case "5*" -> Solution.arrayOfCSVFile[6] = "5";
+                    } else if ("ня".equals(Solution.arrayOfCSVFile[6]) ||
+                            "ня ".equals(Solution.arrayOfCSVFile[6]) ||
+                            "неяв".equals(Solution.arrayOfCSVFile[6]) ||
+                            "н".equals(Solution.arrayOfCSVFile[6])) {                                        //неявка = 2
+
+
+                        if (parts.length > 1) {
+                            if (parts[parts.length - 1].equals("зач") ||
+                                    parts[parts.length - 1].equals("зач ") ||
+                                    parts[parts.length - 1].equals("зач*") ||
+                                    parts[parts.length - 1].equals("незач") ||
+                                    parts[parts.length - 1].equals("нез") ||
+                                    parts[parts.length - 1].equals("нзч") ||
+                                    parts[parts.length - 1].equals("не") ||
+                                    parts[parts.length - 1].equals("нз")) {
+                                Solution.counterStudentsOffsets++;
+
+                            } else if (parts[parts.length - 1].equals("2") ||
+                                    parts[parts.length - 1].equals("3") ||
+                                    parts[parts.length - 1].equals("4") ||
+                                    parts[parts.length - 1].equals("5") ||
+                                    parts[parts.length - 1].equals("3*") ||
+                                    parts[parts.length - 1].equals("4*") ||
+                                    parts[parts.length - 1].equals("5*")) {
+                                Solution.arrayOfCSVFile[6] = "2";
+
+                            } else if (parts[parts.length - 1] == null ||
+                                    parts[parts.length - 1].equals("ня") ||
+                                    parts[parts.length - 1].equals("ня ") ||
+                                    parts[parts.length - 1].equals("неяв") ||
+                                    parts[parts.length - 1].equals("н")) {
+                                Solution.counterNULL++;
+                                Solution.arrayOfCSVFile[6] = null;
                             }
-                            break;
+                        }
+
+                    } else {
+                        switch (Solution.arrayOfCSVFile[6]) {                             //убираем *
+                            case "3*" -> Solution.arrayOfCSVFile[6] = "3";
+                            case "4*" -> Solution.arrayOfCSVFile[6] = "4";
+                            case "5*" -> Solution.arrayOfCSVFile[6] = "5";
+                        }
                     }
                 }
 
-                if (!Solution.arrayOfCSVFile[6].equals("2") &                                 //обнуляем ненужные данные об отчислениях и тд
-                        !Solution.arrayOfCSVFile[6].equals("3") &
-                        !Solution.arrayOfCSVFile[6].equals("4") &
-                        !Solution.arrayOfCSVFile[6].equals("5")) {
-                    Solution.arrayOfCSVFile[6] = null;
+                if (Solution.arrayOfCSVFile[6] != null) {
+                    if (!Solution.arrayOfCSVFile[6].equals("2") &                                 //обнуляем ненужные данные об отчислениях и тд
+                            !Solution.arrayOfCSVFile[6].equals("3") &
+                            !Solution.arrayOfCSVFile[6].equals("4") &
+                            !Solution.arrayOfCSVFile[6].equals("5")) {
+                        Solution.arrayOfCSVFile[6] = null;
 
-                } else {
-                    Solution.counterStudentsGrades++;                                             //считаем кол-во студентов с оценками
-                    Solution.sumOfGrades += Integer.parseInt(Solution.arrayOfCSVFile[6]);         //считаем сумму оценок
+                    } else {
+                        Solution.counterStudentsGrades++;                                             //считаем кол-во студентов с оценками
+                        Solution.sumOfGrades += Integer.parseInt(Solution.arrayOfCSVFile[6]);         //считаем сумму оценок
+                    }
                 }
             }
         } catch (Exception e) {

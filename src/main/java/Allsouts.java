@@ -19,7 +19,11 @@ public class Allsouts {
             System.out.println();
             System.out.println();
 
-            float result = conclusion * percentOffsets;                                                      //результат = ср балл * на зачеты
+            float result = switch (Solution.counterOffsets) {
+                case 0 -> conclusion;
+                default -> conclusion * percentOffsets;                                                     //результат = ср балл * на зачеты
+
+            };
             System.out.printf("итоговое число" + '\t' + '\t' + '\t' + '\t' + '\t' + "%.3f", result);
 
             System.out.println();

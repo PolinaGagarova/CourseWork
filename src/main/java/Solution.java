@@ -7,6 +7,8 @@ public class Solution {
     public static int sumOfGrades = 0;
     public static int counterOffsets = 0;
 
+    public static int counterNULL = 0;
+
     public static void main(String[] args) {
 
         try {
