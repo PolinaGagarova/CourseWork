@@ -10,14 +10,21 @@ public class Solution {
     public static int counterOffsets = 0;
 
     public static int counterNULL = 0;
+    public static int counterNULLOffsets = 0;
+    public static int counterNULLGrades = 0;
 
     public static int allPeople = 0;
+    public static int NULLPeople = 0;
 
     public static void main(String[] args) {
 
         try {
-            ReaderFile.ReadingFile();                       //метод чтения файла
-            Allsouts.AllsoutFile();                         //метод вывода всех результатов
+            //метод чтения файла
+            ReaderFile.ReadingFile();
+
+            //метод вывода всех результатов
+            Allsouts.AllsoutFile();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
